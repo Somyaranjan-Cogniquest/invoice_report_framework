@@ -1,3 +1,4 @@
+from utils.lineitem_report import create_lineitem_report
 import pandas as pd
 
 from db.db_helper import (
@@ -17,7 +18,7 @@ dbstring = '35.244.41.206#root#~0g-"&~[>DAY]p|&#eval_2_db2#3306'
 
 #]
 
-doc_ids = list(range(63313, 63414))
+doc_ids = list(range(63313, 63320))
 
 detailed_rows = []
 
@@ -188,7 +189,7 @@ topic_df = pd.DataFrame([
 
 # Export Reports
 
-with pd.ExcelWriter("reports/final_report.xlsx") as writer:
+with pd.ExcelWriter("reports/DataFields_report.xlsx") as writer:
 
     detailed_df.to_excel(
         writer,
@@ -209,3 +210,10 @@ with pd.ExcelWriter("reports/final_report.xlsx") as writer:
     )
 
 print("✅ Reports Generated Successfully")
+
+# Generate LineItem Report
+create_lineitem_report(dbstring, doc_ids)
+
+
+
+#python generate_report.py

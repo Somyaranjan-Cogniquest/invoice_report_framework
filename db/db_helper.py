@@ -59,3 +59,32 @@ def get_kv_bbox_details_annotated(doc_id, dbstring):
         d[tp] = tpv
 
     return d
+
+def get_line_item_details(doc_id, header, dbstring):
+
+    conn, curr = get_connection(dbstring)
+
+    sql = """
+    SELECT *
+    FROM kv_extract_grid
+    WHERE doc_id = %s
+    AND header = %s
+    """
+
+    curr.execute(sql, (doc_id, header))
+
+    res = curr.fetchall()
+
+    columns = [desc[0] for desc in curr.description]
+
+    line_items = []
+
+    if res and len(res):
+
+        for row in res:
+
+            row_dict = dict(zip(columns, row))
+
+            line_items.append(row_dict)
+
+    return line_items
