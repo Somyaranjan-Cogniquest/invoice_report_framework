@@ -8,3 +8,8 @@ allure-report/
 *.pyc
 htmlcov/
 .env
+# Generated reports
+reports/*.xlsx
+
+# Excel temporary files
+~$*.xlsx
